@@ -52,6 +52,24 @@ function logout()
     return 1;
 }
 
+function createSiswa($data){
+    global $database;
+    $in_absen = $data['absen'];
+    $in_nama = $data['nama'];
+    $in_kodeKelas = $data['kodeKelas'];
+    $in_alamat = $data['alamat'];
+    $in_telepon = $data['telepon'];
+
+    $query = "INSERT INTO siswa(absen, nama, kodeKelas, alamat, telepon) VALUES
+        ('$in_absen', '$in_nama', '$in_kodeKelas', '$in_alamat', '$in_telepon')";
+
+    if (mysqli_query($database, $query)) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 function createGuru($data){
     global $database;
 
@@ -81,6 +99,12 @@ function readSiswa()
     return $siswa;
 }
 
+function readSiswaSingle($id)
+{
+    $siswa = query("SELECT * FROM siswa WHERE NIS = '$id';");
+    return $siswa;
+}
+
 function deleteSiswa($nis)
 {
     global $database;
@@ -95,3 +119,10 @@ function readGuru()
     $guru = query("SELECT * FROM guru g JOIN login l ON g.NIP = l.NIP");
     return $guru;
 }
+
+function readGuruSingle($id)
+{
+    $guru = query("SELECT * FROM guru WHERE NIP = '$id'");
+    return $guru;
+}
+

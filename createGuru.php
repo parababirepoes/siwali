@@ -80,7 +80,7 @@
                             <input class="form-control form-control-sm" type="password" name="validation" id="validation" placeholder="Konfirmasi Password" required autofocus>
 
                             <div class="mt-3 text-start">
-                                <button class="btn btn-lg btn-primary btn-sm" name="submit">Baut Akun</button> 
+                                <button class="btn btn-lg btn-primary btn-sm" name="submit">Buat Akun</button> 
                             </div>
                         </form>
 

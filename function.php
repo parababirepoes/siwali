@@ -73,3 +73,25 @@ function createGuru($data){
         return 0;
     }
 }
+
+function readSiswa()
+{
+    $siswa = query("SELECT s.NIS, s.absen, s.nama, s.alamat, s.telepon FROM siswa s 
+        JOIN guru g ON s.kodeKelas = g.kodeKelas JOIN login l ON g.NIP = l.NIP");
+    return $siswa;
+}
+
+function deleteSiswa($nis)
+{
+    global $database;
+
+    mysqli_query($database, "DELETE FROM siswa WHERE NIS = '$nis'");
+
+    return 1;
+}
+
+function readGuru()
+{
+    $guru = query("SELECT * FROM guru g JOIN login l ON g.NIP = l.NIP");
+    return $guru;
+}

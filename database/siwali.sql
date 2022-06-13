@@ -208,7 +208,9 @@ CREATE TABLE `sumnilai` (
 --
 DROP TABLE IF EXISTS `admin_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `admin_view`  AS SELECT `guru`.`NIP` AS `kodeUnik`, `guru`.`nama` AS `nama`, `guru`.`kodeKelas` AS `kodeKelas`, `guru`.`alamat` AS `alamat`, `guru`.`telepon` AS `telepon` FROM `guru` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `admin_view`  AS SELECT `guru`.`NIP` AS `kodeUnik`, `guru`.`nama` AS `nama`, `guru`.`kodeKelas` AS `kodeKelas`, `guru`.`alamat` AS `alamat`, `guru`.`telepon` AS `telepon` FROM `guru`
+UNION
+SELECT `siswa`.`NIS`, `siswa`.`nama`, `siswa`.`kodeKelas`, `siswa`.`alamat`, `siswa`.`telepon` FROM `siswa` ;
 
 -- --------------------------------------------------------
 

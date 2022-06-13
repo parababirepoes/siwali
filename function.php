@@ -271,3 +271,64 @@ function readAVG($NIS)
     $AVG = query("SELECT * FROM avgnilai WHERE NIS = '$NIS';");
     return $AVG;
 }
+
+function deleteGuru($nip){
+    global $database;
+
+    mysqli_query($database, "DELETE FROM guru WHERE NIP = '$nip'");
+
+    return 1;
+}
+
+function admin(){
+    $admin = query("SELECT * FROM admin_view;");
+    return $admin;
+}
+
+function readNameAdmin($name){
+    $find = query("SELECT * FROM admin_view WHERE nama LIKE '%$name%';");
+    if($find == NULL){
+        return 1;
+    } else {
+        return $find;
+    }
+}
+
+function getCategory($id){
+    if (readSiswaSingle($id) == NULL){
+        return 1;
+    } else {
+        return 2;
+    }
+}
+
+function updateGuru($data){
+    global $database;
+
+    $id = $data['id'];
+    $in_NIP = $data['NIP'];
+    $in_nama = $data['nama'];
+    $in_kodeKelas = $data['kodeKelas'];
+    $in_password = $data['password'];
+    $in_validation = $data['validation'];
+    $in_alamat = $data['alamat'];
+    $in_telepon = $data['telepon'];
+
+    $query = "UPDATE guru SET NIP = '$in_NIP', nama = '$in_nama', 
+        kodeKelas = '$in_kodeKelas', password = '$in_password', 
+        alamat = '$in_alamat', telepon = '$in_telepon'
+        WHERE NIP = '$id'";
+
+    if ($in_password == $in_validation) {
+        mysqli_query($database, $query);
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+function readAdmin(){
+    $admin = query("SELECT * FROM login WHERE NIP = 'admin'");
+    return $admin;
+}

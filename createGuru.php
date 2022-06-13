@@ -19,7 +19,7 @@
         }
     }
 
-    $admin = NULL;
+    $admin = readAdmin();
 
 ?>
 

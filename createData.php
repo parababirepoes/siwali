@@ -31,7 +31,7 @@
         }
     }
 
-    $admin = null;
+    $admin = readAdmin();
 ?>
 
 <!doctype html>

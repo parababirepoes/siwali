@@ -24,7 +24,7 @@
                 echo "
                     <script>
                         alert('Data Siswa Berhasil Ditambah!');
-                        documtent.location.href = 'home.php';
+                        document.location.href = 'home.php';
                     </script>
                 ";
             }

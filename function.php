@@ -126,3 +126,148 @@ function readGuruSingle($id)
     return $guru;
 }
 
+function sortnilai($data){
+    $sortby = $data['sortby'];
+    $range1 = $data['range1'];
+    $range2 = $data['range2'];
+    $tipe = $data['tipe'];
+
+    if ($tipe == 'DESC' || $tipe == NULL) {
+        if(($range1 == NULL && $range2 == NULL) && $sortby != 'AVG'){
+            $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
+                JOIN guru g ON s.kodeKelas = g.kodeKelas 
+                JOIN login l ON g.NIP = l.NIP
+                JOIN sumnilai sn ON s.NIS = sn.NIS
+                WHERE sn.kodeMapel IN('$sortby')
+                ORDER BY sn.AVG DESC");
+            return $result;
+        } else if(($range1 == NULL && $range2 == NULL) && $sortby == 'AVG') {
+            $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
+                JOIN guru g ON s.kodeKelas = g.kodeKelas 
+                JOIN login l ON g.NIP = l.NIP
+                JOIN avgnilai an ON s.NIS = an.NIS
+                ORDER BY an.AVGNilai DESC");
+            return $result;
+        } else if(($range1 != NULL || $range2 != NULL) && $sortby != 'AVG'){
+            $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
+                JOIN guru g ON s.kodeKelas = g.kodeKelas 
+                JOIN login l ON g.NIP = l.NIP
+                JOIN sumnilai sn ON s.NIS = sn.NIS
+                WHERE sn.AVG BETWEEN '$range1' AND '$range2'
+                    AND sn.kodeMapel IN('$sortby')
+                ORDER BY sn.AVG DESC");
+            return $result;
+        } else {
+            $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
+                JOIN guru g ON s.kodeKelas = g.kodeKelas 
+                JOIN login l ON g.NIP = l.NIP
+                JOIN avgnilai an ON s.NIS = an.NIS
+                WHERE an.AVGNilai BETWEEN '$range1' AND '$range2'
+                ORDER BY an.AVGNilai DESC");
+            return $result;
+        }
+    } else {
+        if(($range1 == NULL && $range2 == NULL) && $sortby != 'AVG'){
+            $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
+                JOIN guru g ON s.kodeKelas = g.kodeKelas 
+                JOIN login l ON g.NIP = l.NIP
+                JOIN sumnilai sn ON s.NIS = sn.NIS
+                WHERE sn.kodeMapel IN('$sortby')
+                ORDER BY sn.AVG ASC");
+            return $result;
+        } else if(($range1 == NULL && $range2 == NULL) && $sortby == 'AVG') {
+            $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
+                JOIN guru g ON s.kodeKelas = g.kodeKelas 
+                JOIN login l ON g.NIP = l.NIP
+                JOIN avgnilai an ON s.NIS = an.NIS
+                ORDER BY an.AVGNilai ASC");
+            return $result;
+        } else if(($range1 != NULL || $range2 != NULL) && $sortby != 'AVG'){
+            $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
+                JOIN guru g ON s.kodeKelas = g.kodeKelas 
+                JOIN login l ON g.NIP = l.NIP
+                JOIN sumnilai sn ON s.NIS = sn.NIS
+                WHERE sn.AVG BETWEEN '$range1' AND '$range2'
+                    AND sn.kodeMapel IN('$sortby')
+                ORDER BY sn.AVG ASC");
+            return $result;
+        } else {
+            $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
+                JOIN guru g ON s.kodeKelas = g.kodeKelas 
+                JOIN login l ON g.NIP = l.NIP
+                JOIN avgnilai an ON s.NIS = an.NIS
+                WHERE an.AVGNilai BETWEEN '$range1' AND '$range2'
+                ORDER BY an.AVGNilai ASC");
+            return $result;
+        }
+    }
+}
+
+function readMapel($kodeKelas){
+    $mapel = query("SELECT m.kodeMapel FROM matapelajaran m 
+        JOIN kelas k ON m.jurusan = k.jurusan
+        WHERE k.kodeKelas = '$kodeKelas'");
+    return $mapel;
+}
+
+function update($data)
+{
+    global $database;
+    $NIS = $data['submit'];
+    $absen = $data['absen'];
+    $nama = $data['nama'];
+    $id1 = $data['id1'];
+    $tugas1 = $data["tugas1"];
+    $quiz1 = $data["quiz1"];
+    $uts1 = $data["uts1"];
+    $uas1 = $data["uas1"];
+    $id2 = $data['id2'];
+    $tugas2 = $data["tugas2"];
+    $quiz2 = $data["quiz2"];
+    $uts2 = $data["uts2"];
+    $uas2 = $data["uas2"];
+    $id3 = $data['id3'];
+    $tugas3 = $data["tugas3"];
+    $quiz3 = $data["quiz3"];
+    $uts3 = $data["uts3"];
+    $uas3 = $data["uas3"];
+    $id4 = $data['id4'];
+    $tugas4 = $data["tugas4"];
+    $quiz4 = $data["quiz4"];
+    $uts4 = $data["uts4"];
+    $uas4 = $data["uas4"];
+    
+    mysqli_query($database, "UPDATE siswa 
+        SET absen = '$absen', nama = '$nama'
+        WHERE NIS = $NIS");
+
+    mysqli_query($database, "UPDATE nilai
+        SET nilaiTugas = '$tugas1', nilaiQuiz = '$quiz1', nilaiUTS = '$uts1', nilaiUAS = '$uas1'
+        WHERE id = '$id1'");
+    
+    mysqli_query($database, "UPDATE nilai
+        SET nilaiTugas = '$tugas2', nilaiQuiz = '$quiz2', nilaiUTS = '$uts2', nilaiUAS = '$uas2'
+        WHERE id = '$id2'");
+
+    mysqli_query($database, "UPDATE nilai
+        SET nilaiTugas = '$tugas3', nilaiQuiz = '$quiz3', nilaiUTS = '$uts3', nilaiUAS = '$uas3'
+        WHERE id = '$id3'");
+    
+    mysqli_query($database, "UPDATE nilai
+        SET nilaiTugas = '$tugas4', nilaiQuiz = '$quiz4', nilaiUTS = '$uts4', nilaiUAS = '$uas4'
+        WHERE id = '$id4'");
+
+    return 1;
+}
+
+function readNilai($NIS)
+{
+    $nilai = query("SELECT * FROM sumnilai WHERE NIS = '$NIS';");
+    return $nilai;
+}
+
+function readAVG($NIS)
+{
+    $AVG = query("SELECT * FROM avgnilai WHERE NIS = '$NIS';");
+    return $AVG;
+}

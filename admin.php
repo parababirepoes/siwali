@@ -85,45 +85,54 @@
                 </div>
             </form>
         </div>
-        <div class="container vh-100 bg-white">
-            <table class="table ms-5" style="max-width: 75em;">
-                <thead>
-                    <tr>
-                        <th scope="col">Index</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Kelas</th>
-                        <th scope="col">Alamat</th>
-                        <th scope="col">Telepon</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach($admin as $row) : ?>
+        <?php if($admin == NULL):?>
+            <div class="d-flex align-items-center justify-content-center pt-5">
+                <div class="text-center">
+                    <h1 class="display-1 fw-bold fs-3">Data  Masih Kosong</h1>
+                    <br><br>
+                </div>
+            </div>
+        <?php else:?>
+            <div class="container vh-100 bg-white">
+                <table class="table ms-5" style="max-width: 75em;">
+                    <thead>
                         <tr>
-                            <td><?= $row["kodeUnik"] ?></td>
-                            <td><?= $row["nama"] ?></td>
-                            <td><?= $row["kodeKelas"] ?></td>
-                            <td><?= $row["alamat"] ?></td>
-                            <td><?= $row["telepon"] ?></td>
-                            <td>
-                                <div class="row g-2">
-                                    <div class="col-sm-3">
-                                        <a href="adminAction.php?id=<?= $row['kodeUnik']; ?>">
-                                            <button type="button" class="btn-sm btn-primary">Edit</button>
-                                        </a>
-                                    </div>
-                                    <div class="col-sm">
-                                        <a href="admin.php?id=<?= $row['kodeUnik']; ?>">
-                                            <button type="button" class="btn-sm btn-info ">Delete</button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </td>
+                            <th scope="col">Index</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Kelas</th>
+                            <th scope="col">Alamat</th>
+                            <th scope="col">Telepon</th>
+                            <th scope="col">Action</th>
                         </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        <?php foreach($admin as $row) : ?>
+                            <tr>
+                                <td><?= $row["kodeUnik"] ?></td>
+                                <td><?= $row["nama"] ?></td>
+                                <td><?= $row["kodeKelas"] ?></td>
+                                <td><?= $row["alamat"] ?></td>
+                                <td><?= $row["telepon"] ?></td>
+                                <td>
+                                    <div class="row g-2">
+                                        <div class="col-sm-3">
+                                            <a href="adminAction.php?id=<?= $row['kodeUnik']; ?>">
+                                                <button type="button" class="btn-sm btn-primary">Edit</button>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm">
+                                            <a href="admin.php?id=<?= $row['kodeUnik']; ?>">
+                                                <button type="button" class="btn-sm btn-info ">Delete</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif?>
         <!-- end header -->
 
         <!-- tabel semua data -->

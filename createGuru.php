@@ -2,14 +2,25 @@
 
     require 'function.php';
 
+    $admin = readAdmin();
+
     if(isset($_POST["submit"])){
         if (createGuru($_POST) == 1) {
-            echo "
-                <script>
-                    alert('Akun Berhasil Dibuat');
-                    document.location.href = 'index.php';
-                </script>
-            ";
+            if($admin == NULL){
+                echo "
+                    <script>
+                        alert('Akun Berhasil Dibuat');
+                        document.location.href = 'index.php';
+                    </script>
+                ";
+            } else{
+                echo "
+                    <script>
+                        alert('Akun Berhasil Dibuat');
+                        document.location.href = 'admin.php';
+                    </script>
+                ";
+            }
         } else {
             echo "
                 <script>
@@ -20,7 +31,6 @@
     }
 
     $admin = readAdmin();
-
 ?>
 
 <!doctype html>

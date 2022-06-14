@@ -216,6 +216,8 @@ function update($data)
     $NIS = $data['submit'];
     $absen = $data['absen'];
     $nama = $data['nama'];
+    $alamat = $data['alamat'];
+    $telepon = $data['telepon'];
     $id1 = $data['id1'];
     $tugas1 = $data["tugas1"];
     $quiz1 = $data["quiz1"];
@@ -238,7 +240,7 @@ function update($data)
     $uas4 = $data["uas4"];
     
     mysqli_query($database, "UPDATE siswa 
-        SET absen = '$absen', nama = '$nama'
+        SET absen = '$absen', nama = '$nama', alamat = '$alamat', telepon = '$telepon'
         WHERE NIS = $NIS");
 
     mysqli_query($database, "UPDATE nilai

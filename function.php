@@ -131,24 +131,16 @@ function sortnilai($data){
     $range1 = $data['range1'];
     $range2 = $data['range2'];
     $tipe = $data['tipe'];
+    
+    if($range1 == NULL){
+        $range1 = 0;
+    }
+    if($range2 == NULL){
+        $range2 = 100;
+    }
 
-    if ($tipe == 'DESC' || $tipe == NULL) {
-        if(($range1 == NULL && $range2 == NULL) && $sortby != 'AVG'){
-            $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
-                JOIN guru g ON s.kodeKelas = g.kodeKelas 
-                JOIN login l ON g.NIP = l.NIP
-                JOIN sumnilai sn ON s.NIS = sn.NIS
-                WHERE sn.kodeMapel IN('$sortby')
-                ORDER BY sn.AVG DESC");
-            return $result;
-        } else if(($range1 == NULL && $range2 == NULL) && $sortby == 'AVG') {
-            $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
-                JOIN guru g ON s.kodeKelas = g.kodeKelas 
-                JOIN login l ON g.NIP = l.NIP
-                JOIN avgnilai an ON s.NIS = an.NIS
-                ORDER BY an.AVGNilai DESC");
-            return $result;
-        } else if(($range1 != NULL || $range2 != NULL) && $sortby != 'AVG'){
+    if ($tipe == 'DESC') {
+        if($sortby != 'AVG'){
             $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
                 JOIN guru g ON s.kodeKelas = g.kodeKelas 
                 JOIN login l ON g.NIP = l.NIP
@@ -157,7 +149,7 @@ function sortnilai($data){
                     AND sn.kodeMapel IN('$sortby')
                 ORDER BY sn.AVG DESC");
             return $result;
-        } else {
+        } else if($sortby == 'AVG') {
             $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
                 JOIN guru g ON s.kodeKelas = g.kodeKelas 
                 JOIN login l ON g.NIP = l.NIP
@@ -167,22 +159,7 @@ function sortnilai($data){
             return $result;
         }
     } else {
-        if(($range1 == NULL && $range2 == NULL) && $sortby != 'AVG'){
-            $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
-                JOIN guru g ON s.kodeKelas = g.kodeKelas 
-                JOIN login l ON g.NIP = l.NIP
-                JOIN sumnilai sn ON s.NIS = sn.NIS
-                WHERE sn.kodeMapel IN('$sortby')
-                ORDER BY sn.AVG ASC");
-            return $result;
-        } else if(($range1 == NULL && $range2 == NULL) && $sortby == 'AVG') {
-            $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
-                JOIN guru g ON s.kodeKelas = g.kodeKelas 
-                JOIN login l ON g.NIP = l.NIP
-                JOIN avgnilai an ON s.NIS = an.NIS
-                ORDER BY an.AVGNilai ASC");
-            return $result;
-        } else if(($range1 != NULL || $range2 != NULL) && $sortby != 'AVG'){
+        if($sortby != 'AVG'){
             $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
                 JOIN guru g ON s.kodeKelas = g.kodeKelas 
                 JOIN login l ON g.NIP = l.NIP
@@ -191,7 +168,7 @@ function sortnilai($data){
                     AND sn.kodeMapel IN('$sortby')
                 ORDER BY sn.AVG ASC");
             return $result;
-        } else {
+        } else if($sortby == 'AVG') {
             $result = query("SELECT s.NIS, s.absen, s.nama  FROM siswa s 
                 JOIN guru g ON s.kodeKelas = g.kodeKelas 
                 JOIN login l ON g.NIP = l.NIP
